@@ -2,14 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ServerFrame extends JFrame {
     private JPanel panel;
     private JTextArea taClients;
     private JButton btnAdd;
     private JLabel lblIP;
+    private Server server;
+    private ArrayList<Client> clients = new ArrayList<Client>();
 
     public ServerFrame() {
+        server = new Server();
+
         setTitle("Server");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -25,7 +30,7 @@ public class ServerFrame extends JFrame {
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        lblIP = new JLabel("IP: XXX.XXX.XXX.XXX");
+        lblIP = new JLabel("IP: " + server.getIPAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
         int textAreaWidth = frameWidth;

@@ -8,8 +8,11 @@ public class ClientFrame extends JFrame {
     private JButton btnAdd;
     private JComponent canvas;
     private JLabel lblIP, lblServer;
+    private Client client;
 
     public ClientFrame() {
+        client = new Client();
+
         setTitle("Client");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -28,10 +31,10 @@ public class ClientFrame extends JFrame {
         JPanel labelPanel = new JPanel();
         labelPanel.setLayout(new BorderLayout());
 
-        lblIP = new JLabel("IP: XXX.XXX.XXX.XXX");
+        lblIP = new JLabel("IP: " + client.getIPAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
-        lblServer = new JLabel("SERVER: XXX.XXX.XXX.XXX");
+        lblServer = new JLabel("SERVER: 0.0.0.0");
         lblServer.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelPanel.add(lblIP, BorderLayout.NORTH);
@@ -47,6 +50,7 @@ public class ClientFrame extends JFrame {
 
                 if(input != null && !input.isEmpty()) {
                     //todo validate IP address using regular expressions(regex)
+                    lblServer.setText("SERVER: " + input);
                 }
             }
         });
