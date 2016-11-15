@@ -4,30 +4,23 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Server extends Machine {
-    private String ip;
     private ArrayList<Client> clients = new ArrayList<Client>();
 
-    public Server() {
-        try {
-            ServerSocket serverSocket = new ServerSocket(2345);
+    public Server(boolean startServer) {
+        if(startServer) {
+            try {
+                ServerSocket serverSocket = new ServerSocket(2345);
 
-            while(true) {
-                Socket socket = serverSocket.accept();
+                while(true) {
+                    Socket socket = serverSocket.accept();
 
-                Thread thread = new Thread(new ClientHandler(socket));
-                thread.start();
+                    Thread thread = new Thread(new ClientHandler(socket));
+                    thread.start();
+                }
+            }catch(IOException e) {
+                e.printStackTrace();
             }
-        }catch(IOException e) {
-            e.printStackTrace();
         }
-    }
-
-    public void setIP(String ip) {
-        this.ip = ip;
-    }
-
-    public String getIP() {
-        return ip;
     }
 
     public void addClient(Client client) {

@@ -11,7 +11,7 @@ public class ServerFrame extends JFrame {
     private Server server;
 
     public ServerFrame() {
-        server = new Server();
+        server = new Server(true);
 
         setTitle("Server");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class ServerFrame extends JFrame {
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        lblIP = new JLabel("IP: " + server.getIPAddress());
+        lblIP = new JLabel("IP: " + server.getInetAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
         int textAreaHeight = (int) (frameHeight * 0.5);
@@ -44,7 +44,7 @@ public class ServerFrame extends JFrame {
                 String input = JOptionPane.showInputDialog(null, "Add client");
 
                 if(input != null && !input.isEmpty()) {
-                    Client client = new Client(false);
+                    Client client = new Client();
                     client.setIP(input.trim());
 
                     server.addClient(client);

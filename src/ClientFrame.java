@@ -10,7 +10,7 @@ public class ClientFrame extends JFrame {
     private Client client;
 
     public ClientFrame() {
-        client = new Client(true);
+        client = new Client();
 
         setTitle("Client");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -30,7 +30,7 @@ public class ClientFrame extends JFrame {
         JPanel labelPanel = new JPanel();
         labelPanel.setLayout(new BorderLayout());
 
-        lblIP = new JLabel("IP: " + client.getIPAddress());
+        lblIP = new JLabel("IP: " + client.getInetAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
         lblServer = new JLabel("SERVER: 0.0.0.0");
@@ -48,10 +48,10 @@ public class ClientFrame extends JFrame {
                 String input = JOptionPane.showInputDialog(null, "Add server");
 
                 if(input != null && !input.isEmpty()) {
-                    Server server = new Server();
+                    Server server = new Server(false);
                     server.setIP(input.trim());
 
-                    client.setServer(server);
+                    client.connect(server);
 
                     lblServer.setText("SERVER: " + server.getIP());
                 }

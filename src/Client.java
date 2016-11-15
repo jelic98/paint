@@ -6,26 +6,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Client extends Machine {
-    private String ip;
-    private Server server;
     private DataInputStream input;
     private DataOutputStream output;
 
     public ArrayList<Point> pressPoints = new ArrayList<Point>();
     public ArrayList<Point> releasePoints = new ArrayList<Point>();
-
-    public Client(boolean clientMode) {
-        if(!clientMode) {
-            try {
-                Socket socket = new Socket(server.getIP(), 2345);
-
-                input = new DataInputStream(socket.getInputStream());
-                output = new DataOutputStream(socket.getOutputStream());
-            }catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public void write(boolean released, Point point) {
         String data;
@@ -72,15 +57,14 @@ public class Client extends Machine {
         }
     }
 
-    public void setIP(String ip) {
-        this.ip = ip;
-    }
+    public void connect(Server server) {
+        try {
+            Socket socket = new Socket(server.getIP(), 2345);
 
-    public String getIP() {
-        return ip;
-    }
-
-    public void setServer(Server server) {
-        this.server = server;
+            input = new DataInputStream(socket.getInputStream());
+            output = new DataOutputStream(socket.getOutputStream());
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }

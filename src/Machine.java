@@ -2,11 +2,24 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class Machine {
-    protected String getIPAddress() {
-        try {
-            InetAddress IP = InetAddress.getLocalHost();
+    protected String ip;
 
-            return IP.getHostAddress();
+    protected void setIP(String ip) {
+        this.ip = ip;
+    }
+
+    protected String getIP() {
+        return ip;
+    }
+
+    protected String getInetAddress() {
+        try {
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            String ip = inetAddress.getHostAddress();
+
+            setIP(ip);
+
+            return ip;
         }catch(UnknownHostException e) {
             e.printStackTrace();
         }
