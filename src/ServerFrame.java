@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class ServerFrame extends JFrame {
     private JPanel panel;
@@ -10,7 +9,6 @@ public class ServerFrame extends JFrame {
     private JButton btnAdd;
     private JLabel lblIP;
     private Server server;
-    private ArrayList<Client> clients = new ArrayList<Client>();
 
     public ServerFrame() {
         server = new Server();
@@ -33,11 +31,10 @@ public class ServerFrame extends JFrame {
         lblIP = new JLabel("IP: " + server.getIPAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
-        int textAreaWidth = frameWidth;
         int textAreaHeight = (int) (frameHeight * 0.5);
 
         taClients = new JTextArea();
-        taClients.setPreferredSize(new Dimension(textAreaWidth, textAreaHeight));
+        taClients.setPreferredSize(new Dimension(frameWidth, textAreaHeight));
         taClients.setEditable(false);
 
         btnAdd = new JButton("Add client");
@@ -47,7 +44,12 @@ public class ServerFrame extends JFrame {
                 String input = JOptionPane.showInputDialog(null, "Add client");
 
                 if(input != null && !input.isEmpty()) {
-                    //todo validate IP address using regular expressions(regex)
+                    Client client = new Client(false);
+                    client.setIP(input);
+
+                    server.addClient(client);
+
+                    taClients.append(client.getIP() + "\n");
                 }
             }
         });

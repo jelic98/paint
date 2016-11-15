@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class ClientFrame extends JFrame {
     private JPanel panel;
@@ -11,7 +10,7 @@ public class ClientFrame extends JFrame {
     private Client client;
 
     public ClientFrame() {
-        client = new Client();
+        client = new Client(true);
 
         setTitle("Client");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -50,7 +49,12 @@ public class ClientFrame extends JFrame {
 
                 if(input != null && !input.isEmpty()) {
                     //todo validate IP address using regular expressions(regex)
-                    lblServer.setText("SERVER: " + input);
+                    Server server = new Server();
+                    server.setIP(input);
+
+                    client.setServer(server);
+
+                    lblServer.setText("SERVER: " + server.getIP());
                 }
             }
         });
