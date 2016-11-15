@@ -9,12 +9,12 @@ public class Server extends Machine {
 
     public Server() {
         try {
-            ServerSocket serverSocket = new ServerSocket(5555);
+            ServerSocket serverSocket = new ServerSocket(2345);
 
             while(true) {
                 Socket socket = serverSocket.accept();
 
-                Thread thread = new Thread(new ClientHandler(socket, this));
+                Thread thread = new Thread(new ClientHandler(socket));
                 thread.start();
             }
         }catch(IOException e) {

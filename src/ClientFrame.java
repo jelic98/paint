@@ -39,7 +39,7 @@ public class ClientFrame extends JFrame {
         labelPanel.add(lblIP, BorderLayout.NORTH);
         labelPanel.add(lblServer, BorderLayout.SOUTH);
 
-        canvas = new DrawingCanvas(frameWidth, frameHeight);
+        canvas = new DrawingCanvas(client, frameWidth, frameHeight);
 
         btnAdd = new JButton("Add server");
         btnAdd.addActionListener(new ActionListener() {
@@ -48,9 +48,8 @@ public class ClientFrame extends JFrame {
                 String input = JOptionPane.showInputDialog(null, "Add server");
 
                 if(input != null && !input.isEmpty()) {
-                    //todo validate IP address using regular expressions(regex)
                     Server server = new Server();
-                    server.setIP(input);
+                    server.setIP(input.trim());
 
                     client.setServer(server);
 

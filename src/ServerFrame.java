@@ -45,7 +45,7 @@ public class ServerFrame extends JFrame {
 
                 if(input != null && !input.isEmpty()) {
                     Client client = new Client(false);
-                    client.setIP(input);
+                    client.setIP(input.trim());
 
                     server.addClient(client);
 
