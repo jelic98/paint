@@ -41,8 +41,6 @@ public class Machine {
 
     public void read() {
         try {
-            points.clear();
-
             while(input.available() > 0) {
                 String data = input.readUTF();
 

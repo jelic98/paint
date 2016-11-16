@@ -21,9 +21,11 @@ public class DrawingCanvas extends JComponent {
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
 
-                client.write(e.getPoint());
+                if(client.server != null) {
+                    client.write(e.getPoint());
 
-                repaint();
+                    repaint();
+                }
             }
         });
     }

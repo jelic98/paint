@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
 
 public class Handler implements Runnable {
@@ -25,11 +24,10 @@ public class Handler implements Runnable {
                 if(machine instanceof Server) {
                     for(Point point : machine.points) {
                         machine.write(point);
-                        System.out.println("SERVER: " + point.x + "." + point.y);
+                        System.out.println("SERVER RESPONSE");
                     }
                 }else if(machine instanceof Client) {
                     ((Client) machine).canvas.repaint();
-                    System.out.println("REPAINT");
                 }
 
                 Thread.sleep(250);
