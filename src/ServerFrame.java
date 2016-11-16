@@ -1,17 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ServerFrame extends JFrame {
     private JPanel panel;
     private JTextArea taClients;
-    private JButton btnAdd;
     private JLabel lblIP;
     private Server server;
 
     public ServerFrame() {
-        server = new Server(true);
+        server = new Server();
+        server.start(this);
 
         setTitle("Server");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -37,26 +35,8 @@ public class ServerFrame extends JFrame {
         taClients.setPreferredSize(new Dimension(frameWidth, textAreaHeight));
         taClients.setEditable(false);
 
-        btnAdd = new JButton("Add client");
-        btnAdd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = JOptionPane.showInputDialog(null, "Add client");
-
-                if(input != null && !input.isEmpty()) {
-                    Client client = new Client();
-                    client.setIP(input.trim());
-
-                    server.addClient(client);
-
-                    taClients.append(client.getIP() + "\n");
-                }
-            }
-        });
-
         panel.add(lblIP, BorderLayout.NORTH);
-        panel.add(taClients, BorderLayout.CENTER);
-        panel.add(btnAdd, BorderLayout.SOUTH);
+        panel.add(taClients, BorderLayout.SOUTH);
 
         setContentPane(panel);
         pack();
@@ -64,5 +44,9 @@ public class ServerFrame extends JFrame {
 
     public static void openFrame() {
         new ServerFrame().setVisible(true);
+    }
+
+    public void addClient(String ip) {
+        taClients.append(ip + "\n");
     }
 }

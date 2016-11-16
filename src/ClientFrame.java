@@ -48,7 +48,7 @@ public class ClientFrame extends JFrame {
                 String input = JOptionPane.showInputDialog(null, "Add server");
 
                 if(input != null && !input.isEmpty()) {
-                    Server server = new Server(false);
+                    Server server = new Server();
                     server.setIP(input.trim());
 
                     client.connect(server);

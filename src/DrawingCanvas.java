@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Rectangle2D;
@@ -20,18 +19,9 @@ public class DrawingCanvas extends JComponent {
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
 
-                client.write(false, e.getPoint());
+                client.write(e.getPoint());
 
                 repaint();
-            }
-        });
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-
-                client.write(true, e.getPoint());
             }
         });
     }
@@ -43,26 +33,11 @@ public class DrawingCanvas extends JComponent {
         g2.setColor(Color.WHITE);
         g2.fill(new Rectangle2D.Double(0, 0, width, height));
 
-        for(int i = 1; i < client.pressPoints.size(); i++) {
-            Point currentPoint = client.pressPoints.get(i);
-            Point previousPoint = client.pressPoints.get(i - 1);
+        for(int i = 0; i < client.points.size(); i++) {
+            Point currentPoint = client.points.get(i);
 
             g2.setColor(Color.BLACK);
-
-            boolean released = false;
-
-            for(Point releasePoint : client.releasePoints) {
-                if(previousPoint.equals(releasePoint)) {
-                    released = true;
-                    break;
-                }
-            }
-
-            if(released) {
-                g2.drawOval(currentPoint.x, currentPoint.y, 1, 1);
-            }else {
-                g2.drawLine(previousPoint.x, previousPoint.y, currentPoint.x, currentPoint.y);
-            }
+            g2.fillOval(currentPoint.x, currentPoint.y, (int) (width * 0.05), (int) (height * 0.05));
         }
     }
 }
