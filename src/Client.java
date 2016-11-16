@@ -14,6 +14,9 @@ public class Client extends Machine {
 
             Thread thread = new Thread(new Handler(socket, this));
             thread.start();
+
+            points.clear();
+            canvas.repaint();
         }catch(IOException e) {
             e.printStackTrace();
         }
