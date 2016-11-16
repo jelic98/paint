@@ -1,10 +1,8 @@
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.ArrayList;
 
 public class Server extends Machine {
     private ServerFrame frame;
-    public ArrayList<Client> clients = new ArrayList<Client>();
 
     public void start(ServerFrame frame) {
         this.frame = frame;
@@ -19,8 +17,7 @@ public class Server extends Machine {
         }
     }
 
-    public void addClient(Client client) {
-        clients.add(client);
-        frame.addClient(client.getIP());
+    public void addClient(String ip) {
+        frame.addClient(ip);
     }
 }

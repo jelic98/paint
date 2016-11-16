@@ -1,8 +1,10 @@
+import javax.swing.*;
 import java.io.IOException;
 import java.net.Socket;
 
 public class Client extends Machine {
     public Server server;
+    public JComponent canvas;
 
     public void connect(Server server) {
         this.server = server;

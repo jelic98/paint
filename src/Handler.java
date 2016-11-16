@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,8 +21,20 @@ public class Handler implements Runnable {
 
             while(true) {
                 machine.read();
+
+                if(machine instanceof Server) {
+                    for(Point point : machine.points) {
+                        machine.write(point);
+                        System.out.println("SERVER: " + point.x + "." + point.y);
+                    }
+                }else if(machine instanceof Client) {
+                    ((Client) machine).canvas.repaint();
+                    System.out.println("REPAINT");
+                }
+
+                Thread.sleep(250);
             }
-        }catch(IOException e) {
+        }catch(Exception e) {
             e.printStackTrace();
         }
     }

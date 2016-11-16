@@ -41,6 +41,8 @@ public class Machine {
 
     public void read() {
         try {
+            points.clear();
+
             while(input.available() > 0) {
                 String data = input.readUTF();
 
@@ -51,7 +53,7 @@ public class Machine {
 
                 points.add(point);
 
-                write(point);
+                System.out.println("READ: " + point.x + "." + point.y);
             }
         }catch(IOException e) {
             e.printStackTrace();
@@ -60,6 +62,8 @@ public class Machine {
 
     public void write(Point point) {
         String data = point.x + "." + point.y;
+
+        System.out.println("WRITE: " + data);
 
         try {
             output.writeUTF(data);
