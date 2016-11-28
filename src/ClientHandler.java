@@ -1,12 +1,13 @@
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ClientListener implements Runnable {
+public class ClientHandler implements Runnable {
     private ServerSocket serverSocket;
     private Server server;
 
-    public ClientListener(ServerSocket serverSocket, Server server) {
+    public ClientHandler(ServerSocket serverSocket, Server server) {
         this.serverSocket = serverSocket;
         this.server = server;
     }
@@ -17,15 +18,17 @@ public class ClientListener implements Runnable {
             while(true) {
                 Socket socket = serverSocket.accept();
 
-                Thread thread = new Thread(new Handler(socket, server));
-                thread.start();
+                PrintWriter writer = new PrintWriter(socket.getOutputStream());
+
+                server.clients.add(writer);
 
                 InetSocketAddress inetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
                 String ip = inetSocketAddress.getAddress().toString().replace("/", "");
 
-                server.addClient(ip);
+                server.frame.add(ip);
 
-                Thread.sleep(1000);
+                Thread listener = new Thread(new Listener(socket, server));
+                listener.start();
             }
         }catch(Exception e){
             e.printStackTrace();

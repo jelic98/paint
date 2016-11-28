@@ -23,8 +23,6 @@ public class DrawingCanvas extends JComponent {
 
                 if(client.server != null) {
                     client.write(e.getPoint());
-
-                    repaint();
                 }
             }
         });

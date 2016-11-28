@@ -35,7 +35,7 @@ public class PaintFrame extends JFrame {
         btnServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ServerFrame.openFrame();
+                ServerFrame.open();
                 closeFrame();
             }
         });
@@ -45,7 +45,7 @@ public class PaintFrame extends JFrame {
         btnCLient.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ClientFrame.openFrame();
+                ClientFrame.open();
                 closeFrame();
             }
         });

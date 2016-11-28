@@ -7,10 +7,8 @@ import java.util.ArrayList;
 public class Machine {
     private String ip;
 
-    protected DataInputStream input;
-    protected DataOutputStream output;
-
-    public ArrayList<Point> points = new ArrayList<Point>();
+    protected BufferedReader reader;
+    protected PrintWriter writer;
 
     protected void setIP(String ip) {
         this.ip = ip;
@@ -18,7 +16,7 @@ public class Machine {
 
     protected String getIP() {
         if(ip == null) {
-            setIP(getInetAddress());
+            getInetAddress();
         }
 
         return ip;
@@ -39,35 +37,23 @@ public class Machine {
         return null;
     }
 
-    public void read() {
+    public ArrayList<String> read() {
+        String line;
+        ArrayList<String> lines = new ArrayList<String>();
+
         try {
-            while(input.available() > 0) {
-                String data = input.readUTF();
-
-                int x = Integer.parseInt(data.substring(0, data.indexOf(".")));
-                int y = Integer.parseInt(data.substring(data.indexOf(".") + 1));
-
-                Point point = new Point(x, y);
-
-                points.add(point);
-
-                System.out.println("READ: " + point.x + "." + point.y);
+            while((line = reader.readLine()) != null) {
+                lines.add(line);
             }
         }catch(IOException e) {
             e.printStackTrace();
         }
+
+        return lines;
     }
 
     public void write(Point point) {
-        String data = point.x + "." + point.y;
-
-        System.out.println("WRITE: " + data);
-
-        try {
-            output.writeUTF(data);
-            output.flush();
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
+        writer.println(point.x + "." + point.y);
+        writer.flush();
     }
 }

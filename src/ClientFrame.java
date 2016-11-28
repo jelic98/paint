@@ -65,7 +65,7 @@ public class ClientFrame extends JFrame {
         setContentPane(panel);
     }
 
-    public static void openFrame() {
+    public static void open() {
         new ClientFrame().setVisible(true);
     }
 }

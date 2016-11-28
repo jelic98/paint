@@ -42,11 +42,11 @@ public class ServerFrame extends JFrame {
         pack();
     }
 
-    public static void openFrame() {
+    public static void open() {
         new ServerFrame().setVisible(true);
     }
 
-    public void addClient(String ip) {
+    public void add(String ip) {
         taClients.append(ip + "\n");
     }
 }
