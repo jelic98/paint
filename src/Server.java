@@ -24,8 +24,12 @@ public class Server extends Machine {
     public void broadcast(String line) {
         Iterator i = clients.iterator();
 
+        System.out.println("ITERATOR " + clients.size());
+
         while(i.hasNext()) {
             PrintWriter writer = (PrintWriter) i.next();
+
+            System.out.println("BROADCAST " + line);
 
             writer.println(line);
             writer.flush();

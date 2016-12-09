@@ -15,26 +15,7 @@ public class Listener implements Runnable {
 
     @Override
     public void run() {
-        if(machine instanceof Server) {
-            Server server = (Server) machine;
-
-            for(String line : server.read()) {
-                server.broadcast(line);
-            }
-        }else if(machine instanceof Client) {
-            Client client = (Client) machine;
-
-            for(String line : client.read()) {
-                int x = Integer.parseInt(line.substring(0, line.indexOf(".")));
-                int y = Integer.parseInt(line.substring(line.indexOf(".") + 1));
-
-                Point point = new Point(x, y);
-
-                client.points.add(point);
-            }
-
-            client.canvas.repaint();
-        }
+        machine.read();
     }
 
     private void createStreams() {
