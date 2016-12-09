@@ -1,4 +1,5 @@
-import java.awt.*;
+package org.ecloga.paint;
+
 import java.io.*;
 import java.net.Socket;
 

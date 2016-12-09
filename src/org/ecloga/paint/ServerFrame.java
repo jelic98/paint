@@ -1,14 +1,13 @@
+package org.ecloga.paint;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ServerFrame extends JFrame {
-    private JPanel panel;
     private JTextArea taClients;
-    private JLabel lblIP;
-    private Server server;
 
     public ServerFrame() {
-        server = new Server();
+        Server server = new Server();
         server.start(this);
 
         setTitle("Server");
@@ -23,10 +22,10 @@ public class ServerFrame extends JFrame {
         setSize(frameWidth, frameHeight);
         setLocation(screenSize.width / 2 - frameWidth / 2, screenSize.height / 2 - frameHeight / 2);
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        lblIP = new JLabel("IP: " + server.getInetAddress());
+        JLabel lblIP = new JLabel("IP: " + server.getInetAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
         int textAreaHeight = (int) (frameHeight * 0.5);

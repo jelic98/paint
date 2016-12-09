@@ -1,3 +1,5 @@
+package org.ecloga.paint;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -7,21 +9,19 @@ import java.awt.geom.Rectangle2D;
 public class DrawingCanvas extends JComponent {
     private Client client;
     private int width, height;
-    private Graphics2D g2;
 
     public DrawingCanvas(Client client, int width, int height) {
         this.client = client;
         this.width = width;
         this.height = height;
-
-        this.client.canvas = this;
+        this.client.setCanvas(this);
 
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
 
-                if(client.server != null) {
+                if(client.isConnected()) {
                     client.write(e.getPoint());
                 }
             }
@@ -30,7 +30,7 @@ public class DrawingCanvas extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g;
 
         g2.setColor(Color.WHITE);
         g2.fill(new Rectangle2D.Double(0, 0, width, height));

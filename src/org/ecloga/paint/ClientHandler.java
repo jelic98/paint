@@ -1,3 +1,5 @@
+package org.ecloga.paint;
+
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -20,12 +22,12 @@ public class ClientHandler implements Runnable {
 
                 PrintWriter writer = new PrintWriter(socket.getOutputStream());
 
-                server.clients.add(writer);
+                server.getClients().add(writer);
 
                 InetSocketAddress inetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
                 String ip = inetSocketAddress.getAddress().toString().replace("/", "");
 
-                server.frame.add(ip);
+                server.addClient(ip);
 
                 Thread listener = new Thread(new Listener(socket, server));
                 listener.start();

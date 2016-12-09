@@ -1,12 +1,11 @@
+package org.ecloga.paint;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class ClientFrame extends JFrame {
-    private JPanel panel;
-    private JButton btnAdd;
-    private JComponent canvas;
-    private JLabel lblIP, lblServer;
+    private JLabel lblServer;
     private Client client;
 
     public ClientFrame() {
@@ -24,24 +23,24 @@ public class ClientFrame extends JFrame {
         setSize(frameWidth, frameHeight);
         setLocation(screenSize.width / 2 - frameWidth / 2, screenSize.height / 2 - frameHeight / 2);
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
         JPanel labelPanel = new JPanel();
         labelPanel.setLayout(new BorderLayout());
 
-        lblIP = new JLabel("IP: " + client.getInetAddress());
+        JLabel lblIP = new JLabel("IP: " + client.getInetAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
-        lblServer = new JLabel("SERVER: 0.0.0.0");
+        lblServer = new JLabel("SERVER: Undefined");
         lblServer.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelPanel.add(lblIP, BorderLayout.NORTH);
         labelPanel.add(lblServer, BorderLayout.SOUTH);
 
-        canvas = new DrawingCanvas(client, frameWidth, frameHeight);
+        JComponent canvas = new DrawingCanvas(client, frameWidth, frameHeight);
 
-        btnAdd = new JButton("Add server");
+        JButton btnAdd = new JButton("Add server");
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,3 +1,5 @@
+package org.ecloga.paint;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -5,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Server extends Machine {
-    public ServerFrame frame;
-    public ArrayList<PrintWriter> clients = new ArrayList<PrintWriter>();
+    private ServerFrame frame;
+    private ArrayList<PrintWriter> clients = new ArrayList<PrintWriter>();
 
     public void start(ServerFrame frame) {
         this.frame = frame;
@@ -24,15 +26,20 @@ public class Server extends Machine {
     public void broadcast(String line) {
         Iterator i = clients.iterator();
 
-        System.out.println("ITERATOR " + clients.size());
-
         while(i.hasNext()) {
             PrintWriter writer = (PrintWriter) i.next();
-
-            System.out.println("BROADCAST " + line);
 
             writer.println(line);
             writer.flush();
         }
+    }
+
+    public void addClient(String ip) {
+        frame.add(ip);
+    }
+
+    public ArrayList<PrintWriter> getClients() {
+
+        return clients;
     }
 }

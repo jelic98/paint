@@ -1,13 +1,12 @@
+package org.ecloga.paint;
+
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Client extends Machine {
-    public Server server;
-    public JComponent canvas;
-    public ArrayList<Point> points = new ArrayList<Point>();
+    private Server server;
+    private JComponent canvas;
 
     public void connect(Server server) {
         this.server = server;
@@ -23,5 +22,19 @@ public class Client extends Machine {
         }catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCanvas(JComponent canvas) {
+        this.canvas = canvas;
+    }
+
+    public JComponent getCanvas() {
+
+        return canvas;
+    }
+
+    public boolean isConnected() {
+
+        return server != null;
     }
 }
