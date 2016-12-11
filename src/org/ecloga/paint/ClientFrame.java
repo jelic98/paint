@@ -3,8 +3,10 @@ package org.ecloga.paint;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class ClientFrame extends JFrame {
+
     private JLabel lblServer;
     private Client client;
 
@@ -32,7 +34,7 @@ public class ClientFrame extends JFrame {
         JLabel lblIP = new JLabel("IP: " + client.getInetAddress());
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
-        lblServer = new JLabel("SERVER: Undefined");
+        lblServer = new JLabel("SERVER: undefined");
         lblServer.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelPanel.add(lblIP, BorderLayout.NORTH);
@@ -43,14 +45,20 @@ public class ClientFrame extends JFrame {
         JButton btnAdd = new JButton("Add server");
         btnAdd.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = JOptionPane.showInputDialog(null, "Add server");
+            public void actionPerformed(ActionEvent event) {
+                String input = JOptionPane.showInputDialog(null, "Add server", "localhost");
 
                 if(input != null && !input.isEmpty()) {
                     Server server = new Server();
                     server.setIP(input.trim());
 
-                    client.connect(server);
+                    try {
+                        client.connect(server);
+                    }catch(IOException e) {
+                        JOptionPane.showMessageDialog(null, "Invalid address", "Error", JOptionPane.ERROR_MESSAGE);
+                        e.printStackTrace();
+                        return;
+                    }
 
                     lblServer.setText("SERVER: " + server.getIP());
                 }

@@ -7,8 +7,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Server extends Machine {
+
     private ServerFrame frame;
-    private ArrayList<PrintWriter> clients = new ArrayList<PrintWriter>();
+    private ArrayList<PrintWriter> clients;
+
+    public Server() {
+        clients = new ArrayList<PrintWriter>();
+    }
 
     public void start(ServerFrame frame) {
         this.frame = frame;

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ServerFrame extends JFrame {
+
     private JTextArea taClients;
 
     public ServerFrame() {

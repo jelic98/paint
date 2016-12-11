@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PaintFrame extends JFrame {
-    private JPanel panel;
-    private JButton btnServer, btnCLient;
-    private JLabel lblChoice;
 
     public PaintFrame() {
         setTitle("Paint");
@@ -23,16 +20,16 @@ public class PaintFrame extends JFrame {
         setSize(frameWidth, frameHeight);
         setLocation(screenSize.width / 2 - frameWidth / 2, screenSize.height / 2 - frameHeight / 2);
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        lblChoice = new JLabel("Choose mode");
+        JLabel lblChoice = new JLabel("Choose mode");
         lblChoice.setHorizontalAlignment(SwingConstants.CENTER);
 
         int buttonWidth = frameWidth;
         int buttonHeight = (int) (frameHeight * 0.25);
 
-        btnServer = new JButton("Server");
+        JButton btnServer = new JButton("Server");
         btnServer.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         btnServer.addActionListener(new ActionListener() {
             @Override
@@ -42,7 +39,7 @@ public class PaintFrame extends JFrame {
             }
         });
 
-        btnCLient = new JButton("Client");
+        JButton btnCLient = new JButton("Client");
         btnCLient.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         btnCLient.addActionListener(new ActionListener() {
             @Override

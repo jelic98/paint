@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class Listener implements Runnable {
+
     private Socket socket;
     private Machine machine;
 

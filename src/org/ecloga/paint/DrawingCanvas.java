@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Rectangle2D;
 
 public class DrawingCanvas extends JComponent {
+
     private Client client;
     private int width, height;
 
@@ -35,8 +36,9 @@ public class DrawingCanvas extends JComponent {
         g2.setColor(Color.WHITE);
         g2.fill(new Rectangle2D.Double(0, 0, width, height));
 
-        for(int i = 0; i < client.points.size(); i++) {
-            Point point = client.points.get(i);
+        for(int i = 0; i < client.getPoints().size(); i++) {
+            //todo check if pint already exists - runtime optimization
+            Point point = client.getPoints().get(i);
 
             g2.setColor(Color.BLACK);
             g2.fillOval(point.x, point.y, (int) (width * 0.05), (int) (height * 0.05));
