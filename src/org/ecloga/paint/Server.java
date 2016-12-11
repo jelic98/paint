@@ -55,7 +55,6 @@ public class Server extends Machine {
             listener.start();
         }catch(IOException e) {
             e.printStackTrace();
-            return;
         }
     }
 }
