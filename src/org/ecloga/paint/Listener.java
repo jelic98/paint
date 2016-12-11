@@ -17,7 +17,12 @@ public class Listener implements Runnable {
 
     @Override
     public void run() {
-        machine.read();
+        if(machine instanceof Client) {
+            machine.read();
+        }else if(machine instanceof Server) {
+            Thread listener = new Thread(new ServerListener((Server) machine, machine.reader));
+            listener.start();
+        }
     }
 
     private void createStreams() {

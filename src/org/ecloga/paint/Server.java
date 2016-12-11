@@ -66,9 +66,4 @@ public class Server extends Machine {
         readers.add(reader);
         writers.add(writer);
     }
-
-    public ArrayList<PrintWriter> getClients() {
-
-        return writers;
-    }
 }

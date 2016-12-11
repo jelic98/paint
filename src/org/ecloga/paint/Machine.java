@@ -45,23 +45,20 @@ public class Machine implements PacketSender {
     }
 
     public void read() {
-        if(this instanceof Client) {
-            try {
-                String line;
+        try {
+            String line;
 
-                while((line = reader.readLine()) != null) {
-                    int x = Integer.parseInt(line.substring(0, line.indexOf(".")));
-                    int y = Integer.parseInt(line.substring(line.indexOf(".") + 1));
+            while((line = reader.readLine()) != null) {
+                int x = Integer.parseInt(line.substring(0, line.indexOf(".")));
+                int y = Integer.parseInt(line.substring(line.indexOf(".") + 1));
 
+                Client client = (Client) this;
 
-                    Client client = (Client) this;
-
-                    client.getPoints().add(new Point(x, y));
-                    client.getCanvas().repaint();
-                }
-            }catch(IOException e) {
-                e.printStackTrace();
+                client.getPoints().add(new Point(x, y));
+                client.getCanvas().repaint();
             }
+        }catch(IOException e) {
+            e.printStackTrace();
         }
     }
 
