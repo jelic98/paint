@@ -1,5 +1,6 @@
 package org.ecloga.paint;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -9,10 +10,12 @@ import java.util.Iterator;
 public class Server extends Machine {
 
     private ServerFrame frame;
-    private ArrayList<PrintWriter> clients;
+    private ArrayList<BufferedReader> readers;
+    private ArrayList<PrintWriter> writers;
 
     public Server() {
-        clients = new ArrayList<PrintWriter>();
+        readers = new ArrayList<BufferedReader>();
+        writers = new ArrayList<PrintWriter>();
     }
 
     public void start(ServerFrame frame) {
@@ -29,7 +32,7 @@ public class Server extends Machine {
     }
 
     public void broadcast(String line) {
-        Iterator i = clients.iterator();
+        Iterator i = writers.iterator();
 
         while(i.hasNext()) {
             PrintWriter writer = (PrintWriter) i.next();
@@ -39,12 +42,33 @@ public class Server extends Machine {
         }
     }
 
-    public void addClient(String ip) {
+    public void read() {
+        Iterator i = readers.iterator();
+
+        while(i.hasNext()) {
+            BufferedReader reader = (BufferedReader) i.next();
+
+            String line;
+
+            try {
+                while((line = reader.readLine()) != null) {
+                    broadcast(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addClient(String ip, BufferedReader reader, PrintWriter writer) {
         frame.add(ip);
+
+        readers.add(reader);
+        writers.add(writer);
     }
 
     public ArrayList<PrintWriter> getClients() {
 
-        return clients;
+        return writers;
     }
 }

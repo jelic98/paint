@@ -45,26 +45,23 @@ public class Machine implements PacketSender {
     }
 
     public void read() {
-        try {
-            String line;
+        if(this instanceof Client) {
+            try {
+                String line;
 
-            while((line = reader.readLine()) != null) {
-                int x = Integer.parseInt(line.substring(0, line.indexOf(".")));
-                int y = Integer.parseInt(line.substring(line.indexOf(".") + 1));
+                while((line = reader.readLine()) != null) {
+                    int x = Integer.parseInt(line.substring(0, line.indexOf(".")));
+                    int y = Integer.parseInt(line.substring(line.indexOf(".") + 1));
 
-                if(this instanceof Client) {
+
                     Client client = (Client) this;
 
                     client.getPoints().add(new Point(x, y));
                     client.getCanvas().repaint();
-                }else if(this instanceof Server) {
-                    ((Server) this).broadcast(line);
                 }
+            }catch(IOException e) {
+                e.printStackTrace();
             }
-
-            reader.close();
-        }catch(IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -74,8 +71,6 @@ public class Machine implements PacketSender {
         builder.append(point.x).append(".").append(point.y);
 
         String packet = builder.toString();
-
-        System.out.println(packet);
 
         writer.println(packet);
         writer.flush();
