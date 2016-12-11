@@ -37,7 +37,6 @@ public class DrawingCanvas extends JComponent {
         g2.fill(new Rectangle2D.Double(0, 0, width, height));
 
         for(int i = 0; i < client.getPoints().size(); i++) {
-            //todo check if pint already exists - runtime optimization
             Point point = client.getPoints().get(i);
 
             g2.setColor(Color.BLACK);

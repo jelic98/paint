@@ -19,7 +19,7 @@ public class ServerListener implements Runnable {
             String line;
 
             while((line = reader.readLine()) != null) {
-                server.broadcast(line);
+                server.write(line);
             }
         }catch(IOException e) {
             e.printStackTrace();
