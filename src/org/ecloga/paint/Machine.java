@@ -3,7 +3,7 @@ package org.ecloga.paint;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class Machine {
+public class Machine extends InputOutput {
 
     private String ip;
 

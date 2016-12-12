@@ -21,6 +21,8 @@ public class Server extends Machine {
     public void start(ServerFrame frame) {
         this.frame = frame;
 
+        setMachine(this);
+
         try {
             ServerSocket serverSocket = new ServerSocket(2345);
 
@@ -31,14 +33,11 @@ public class Server extends Machine {
         }
     }
 
-    public void write(String line) {
+    public void broadcast(String line) {
         Iterator i = writers.iterator();
 
         while(i.hasNext()) {
-            PrintWriter writer = (PrintWriter) i.next();
-
-            writer.println(line);
-            writer.flush();
+            write((PrintWriter) i.next(), line);
         }
     }
 
@@ -51,7 +50,7 @@ public class Server extends Machine {
 
             writers.add(writer);
 
-            Thread listener = new Thread(new ServerListener(this, reader));
+            Thread listener = new Thread(new Listener(this, reader));
             listener.start();
         }catch(IOException e) {
             e.printStackTrace();

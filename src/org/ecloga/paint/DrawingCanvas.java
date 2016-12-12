@@ -23,7 +23,7 @@ public class DrawingCanvas extends JComponent {
                 super.mouseDragged(e);
 
                 if(client.isConnected()) {
-                    client.write(e.getPoint());
+                    client.write(client.getWriter(), e.getPoint());
                 }
             }
         });
