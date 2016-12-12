@@ -35,7 +35,7 @@ public class PaintFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ServerFrame.open();
-                closeFrame();
+                close();
             }
         });
 
@@ -45,7 +45,7 @@ public class PaintFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ClientFrame.open();
-                closeFrame();
+                close();
             }
         });
 
@@ -57,12 +57,16 @@ public class PaintFrame extends JFrame {
         pack();
     }
 
-    private void closeFrame() {
+    private void close() {
         setVisible(false);
         dispose();
     }
 
-    public static void main(String[] args) {
+    private static void open() {
         new PaintFrame().setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        open();
     }
 }

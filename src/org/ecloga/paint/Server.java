@@ -42,7 +42,7 @@ public class Server extends Machine {
     }
 
     public void addClient(String ip, Socket socket) {
-        frame.add(ip);
+        frame.addIP(ip);
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));

@@ -46,7 +46,7 @@ public class ServerFrame extends JFrame {
         new ServerFrame().setVisible(true);
     }
 
-    public void add(String ip) {
+    public void addIP(String ip) {
         taClients.append(ip + "\n");
     }
 }
