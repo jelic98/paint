@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class InputOutput {
+public class InputOutput implements StringMaker {
 
     private Server server;
     private Client client;
@@ -57,7 +57,8 @@ public class InputOutput {
         }
     }
 
-    protected void setStringBuilder(StringBuilder builder) {
+    @Override
+    public void setStringBuilder(StringBuilder builder) {
         this.builder = builder;
     }
 }
