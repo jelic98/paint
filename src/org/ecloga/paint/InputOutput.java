@@ -59,14 +59,11 @@ public class InputOutput implements StringMaker {
         //kreiranje linije preko StringBuilder objekta
         String packet = builder.toString();
 
-        //emitovanje linije
-        writer.println(packet);
-
-        //zavrsetak emitovanja
-        writer.flush();
+        //pozivanje istoimenog metoda za emitovanje linije
+        write(writer, packet);
     }
 
-    //emitovanje linije klijentu pomocu PrintWriter objekta
+    //emitovanje linije pomocu PrintWriter objekta
     protected void write(PrintWriter writer, String line) {
         //emitovanje linije
         writer.println(line);

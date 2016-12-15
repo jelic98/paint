@@ -43,7 +43,7 @@ public class Machine extends InputOutput {
             e.printStackTrace();
         }
 
-        //vracanje NULL vrednosti
-        return null;
+        //vracanje vrednosti za neuspelu konekciju
+        return "undefined";
     }
 }
