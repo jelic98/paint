@@ -4,10 +4,10 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable {
+class ClientHandler implements Runnable {
 
-    private ServerSocket serverSocket;
-    private Server server;
+    private final ServerSocket serverSocket;
+    private final Server server;
 
     //odredjivanje ServerSocket i Server objekta
     public ClientHandler(ServerSocket serverSocket, Server server) {

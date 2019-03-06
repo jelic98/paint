@@ -5,10 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PaintFrame extends JFrame {
+class PaintFrame extends JFrame {
 
     //konfigurasanje forme
-    public PaintFrame() {
+    private PaintFrame() {
         //odredjivanje naziva forme
         setTitle("Paint");
 
@@ -57,9 +57,8 @@ public class PaintFrame extends JFrame {
         btnServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //otvaranje forme servera i zatvaranje trenutne forme
+                //otvaranje forme servera
                 ServerFrame.open();
-                close();
             }
         });
 
@@ -75,9 +74,6 @@ public class PaintFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //otvaranje forme klijenta
                 ClientFrame.open();
-
-                //zatvaranje forme
-                close();
             }
         });
 
@@ -89,17 +85,8 @@ public class PaintFrame extends JFrame {
         //panel postaje glavni
         setContentPane(panel);
 
-        //menjanje velicine forme
+        //izbacivanje razmaka izmedju komponenti
         pack();
-    }
-
-    //zatvaranje forme
-    private void close() {
-        //gubljenje vidljivosti
-        setVisible(false);
-
-        //izbacivanje forme
-        dispose();
     }
 
     //otvaranje forme

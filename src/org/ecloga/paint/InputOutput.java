@@ -12,7 +12,7 @@ public class InputOutput implements StringMaker {
     private StringBuilder builder;
 
     //citanje linija BufferedReader objekta
-    protected void read(BufferedReader reader) {
+    void read(BufferedReader reader) {
         try {
             //postavljanje inicijalne vrednosti linije na NULL
             String line;
@@ -48,7 +48,7 @@ public class InputOutput implements StringMaker {
     }
 
     //emitovanje tacke serveru pomocu PrintWriter objekta
-    protected void write(PrintWriter writer, Point point) {
+    void write(PrintWriter writer, Point point) {
         //praznjenje StringBuilder objekta
         builder.setLength(0);
         builder.trimToSize();
@@ -64,7 +64,7 @@ public class InputOutput implements StringMaker {
     }
 
     //emitovanje linije pomocu PrintWriter objekta
-    protected void write(PrintWriter writer, String line) {
+    void write(PrintWriter writer, String line) {
         //emitovanje linije
         writer.println(line);
 
@@ -73,7 +73,7 @@ public class InputOutput implements StringMaker {
     }
 
     //odredjivanje Machine objekta
-    protected void setMachine(Machine machine) {
+    void setMachine(Machine machine) {
         //provera tipa Machine objekta
         if(machine instanceof Client) {
             //odredjivanje Client objekta

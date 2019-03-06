@@ -9,14 +9,14 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Server extends Machine {
+class Server extends Machine {
 
     private ServerFrame frame;
-    private ArrayList<PrintWriter> writers;
+    private final ArrayList<PrintWriter> writers;
 
     //odredjivanje inicijalne vrednosti niza PrintWriter objekta
     public Server() {
-        writers = new ArrayList<PrintWriter>();
+        writers = new ArrayList<>();
     }
 
     //pokretanje servera
@@ -28,7 +28,7 @@ public class Server extends Machine {
 
         try {
             //kreiranje ServerSocket objekta na osnovu porta
-            ServerSocket serverSocket = new ServerSocket(2345);
+            ServerSocket serverSocket = new ServerSocket(Machine.PORT);
 
             //kreiranje programske niti koja ce citati linije BufferedReader objekta
             Thread clientListener = new Thread(new ClientHandler(serverSocket, this));

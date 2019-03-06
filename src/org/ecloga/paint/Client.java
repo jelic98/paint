@@ -1,32 +1,35 @@
 package org.ecloga.paint;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Client extends Machine {
+class Client extends Machine {
+
+    private static final int TIMEOUT_MILLIS = 3000;
 
     private Server server;
     private JComponent canvas;
-    private ArrayList<Point> points;
+    private final ArrayList<Point> points;
     private PrintWriter writer;
 
     //odredjivanje inicijalne vrednosti niza tacaka
     public Client() {
-        points = new ArrayList<Point>();
+        points = new ArrayList<>();
     }
 
     //povezivanje sa serverom
     public void connect(Server server) throws IOException {
         this.server = server;
 
-        //kreiranje soketa na osnovu IP adrese servera i porta
-        Socket socket = new Socket(server.getIP(), 2345);
+        //kreiranje soketa na osnovu IP adrese servera i porta uz tajmaut
+        Socket socket = new Socket();
+        socket.connect(new InetSocketAddress(server.getIP(), Machine.PORT), TIMEOUT_MILLIS);
 
         //kreiranje BufferedReader objekta na osnovu soketa
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));

@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-public class ClientFrame extends JFrame {
+class ClientFrame extends JFrame {
 
-    private JLabel lblServer;
-    private Client client;
+    private final JLabel lblServer;
+    private final Client client;
 
     //konfigurisanje forme
-    public ClientFrame() {
+    private ClientFrame() {
         //kreiranje novog Client objekta
         client = new Client();
 
@@ -50,7 +50,7 @@ public class ClientFrame extends JFrame {
         labelPanel.setLayout(new BorderLayout());
 
         //kreiranje labele za IP adresu klijenta i odredjivanje njenog teksta
-        JLabel lblIP = new JLabel("IP: " + client.getInetAddress());
+        JLabel lblIP = new JLabel("IP: " + client.getIP());
 
         //odredjivanje poravnanja teksta u labeli za IP adresu klijenta
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
@@ -76,7 +76,7 @@ public class ClientFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event) {
                 //kreiranje dijaloga za unos IP adrese servera i odredjivanje njene inicijalne vrednosti
-                String input = JOptionPane.showInputDialog(null, "Add server", "localhost");
+                String input = JOptionPane.showInputDialog(null, "Add server", client.getIP());
 
                 //proveravanje da li je polje za unos IP adrese servera prazno
                 if(input != null && !input.isEmpty()) {

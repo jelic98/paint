@@ -6,10 +6,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Rectangle2D;
 
-public class DrawingCanvas extends JComponent {
+class DrawingCanvas extends JComponent {
 
-    private Client client;
-    private int width, height;
+    private final Client client;
+    private final int width;
+    private final int height;
 
     //odredjivanje Client objekta i sirine i visine platna za crtanje
     public DrawingCanvas(Client client, int width, int height) {

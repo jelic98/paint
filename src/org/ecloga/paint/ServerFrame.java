@@ -3,12 +3,12 @@ package org.ecloga.paint;
 import javax.swing.*;
 import java.awt.*;
 
-public class ServerFrame extends JFrame {
+class ServerFrame extends JFrame {
 
-    private JTextArea taClients;
+    private final JTextArea taClients;
 
     //konfigurisanje forme
-    public ServerFrame() {
+    private ServerFrame() {
         //kreiranje novog Server objekta
         Server server = new Server();
 
@@ -44,7 +44,7 @@ public class ServerFrame extends JFrame {
         panel.setLayout(new BorderLayout());
 
         //kreiranje labele i odredjivanje njenog teksta
-        JLabel lblIP = new JLabel("IP: " + server.getInetAddress());
+        JLabel lblIP = new JLabel("IP: " + server.getIP());
 
         //pozicioniranje labele
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);

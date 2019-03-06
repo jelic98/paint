@@ -1,19 +1,20 @@
 package org.ecloga.paint;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 
 public class Machine extends InputOutput {
+
+    static final int PORT = 2345;
 
     private String ip;
 
     //odredjivanje IP adrese
-    protected void setIP(String ip) {
+    void setIP(String ip) {
         this.ip = ip;
     }
 
     //uzimanje IP adrese
-    protected String getIP() {
+    String getIP() {
         //provera da li Machine objekat poseduje IP adresu
         if(ip == null) {
             //uzimanje adrese
@@ -25,20 +26,14 @@ public class Machine extends InputOutput {
     }
 
     //uzimanje adrese
-    protected String getInetAddress() {
+    private String getInetAddress() {
         try {
-            //uzimanje lokalnog hosta
-            InetAddress inetAddress = InetAddress.getLocalHost();
-
-            //kreiranje IP adrese na osnovu lokalnog hosta
-            String ip = inetAddress.getHostAddress();
-
-            //odredjivanje IP adrese
-            setIP(ip);
+            //postavljanje IP adrese
+            setIP(InetAddress.getLocalHost().getHostAddress());
 
             //vracanje IP adrese
             return ip;
-        }catch(UnknownHostException e) {
+        }catch(Exception e) {
             //logovanje greske
             e.printStackTrace();
         }

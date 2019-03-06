@@ -1,6 +1,6 @@
 package org.ecloga.paint;
 
-public interface StringMaker {
+interface StringMaker {
 
     //odredjivanje StringBuilder objekta
     void setStringBuilder(StringBuilder builder);
