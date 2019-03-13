@@ -15,35 +15,49 @@ class Client extends Machine {
     private static final int TIMEOUT_MILLIS = 3000;
 
     private Server server;
+    private Socket socket;
+    private BufferedReader reader;
     private JComponent canvas;
     private PrintWriter writer;
     private final ArrayList<Point> points;
 
     public Client() {
         points = new ArrayList<>();
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                //disconnect();
+            }
+        });
     }
 
     public void connect(Server server) throws IOException {
         this.server = server;
 
-        Socket socket = new Socket();
+        socket = new Socket();
         socket.connect(new InetSocketAddress(server.getIP(), Machine.PORT), TIMEOUT_MILLIS);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new PrintWriter(socket.getOutputStream());
 
         points.clear();
-
         canvas.repaint();
 
         setMachine(this);
-
         setStringBuilder(new StringBuilder());
 
-        Thread thread = new Thread(new Listener(this, reader));
+        new Thread(new Listener(this, reader)).start();
+    }
 
-        thread.start();
+    public void disconnect() {
+        try {
+            if(socket != null) {
+                socket.close();
+            }
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setCanvas(JComponent canvas) {

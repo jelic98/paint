@@ -12,22 +12,39 @@ import java.util.Iterator;
 class Server extends Machine {
 
     private ServerFrame frame;
+    private ServerSocket serverSocket;
+    private final ArrayList<BufferedReader> readers;
     private final ArrayList<PrintWriter> writers;
 
     public Server() {
+        readers = new ArrayList<>();
         writers = new ArrayList<>();
+
+        Server instance = this;
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                instance.stop();
+            }
+        });
     }
 
-    public void start(ServerFrame frame) {
+    public void start(ServerFrame frame) throws IOException {
         this.frame = frame;
 
         setMachine(this);
+
+        serverSocket = new ServerSocket(Machine.PORT);
+
+        new Thread(new ClientHandler(serverSocket, this)).start();
+    }
+
+    public void stop() {
         try {
-            ServerSocket serverSocket = new ServerSocket(Machine.PORT);
-
-            Thread clientListener = new Thread(new ClientHandler(serverSocket, this));
-
-            clientListener.start();
+            if(serverSocket != null) {
+                serverSocket.close();
+            }
         }catch(IOException e) {
             e.printStackTrace();
         }
@@ -43,16 +60,15 @@ class Server extends Machine {
 
     public void addClient(String ip, Socket socket) {
         frame.addIP(ip);
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
 
+            readers.add(reader);
             writers.add(writer);
 
-            Thread listener = new Thread(new Listener(this, reader));
-
-            listener.start();
+            new Thread(new Listener(this, reader)).start();
         }catch(IOException e) {
             e.printStackTrace();
         }

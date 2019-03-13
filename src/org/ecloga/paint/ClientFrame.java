@@ -14,43 +14,32 @@ class ClientFrame extends JFrame {
         client = new Client();
 
         setTitle("Client");
-
+        setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setResizable(false);
-
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
         int frameWidth = (int) (screenSize.width * 0.5);
         int frameHeight = (int) (screenSize.width * 0.5);
 
         setSize(frameWidth, frameHeight);
-
         setLocation(screenSize.width / 2 - frameWidth / 2, screenSize.height / 2 - frameHeight / 2);
 
         JPanel panel = new JPanel();
-
         panel.setLayout(new BorderLayout());
 
         JPanel labelPanel = new JPanel();
-
         labelPanel.setLayout(new BorderLayout());
 
         JLabel lblIP = new JLabel("IP: " + client.getIP());
-
         lblIP.setHorizontalAlignment(SwingConstants.CENTER);
 
         lblServer = new JLabel("SERVER: undefined");
-
         lblServer.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelPanel.add(lblIP, BorderLayout.NORTH);
         labelPanel.add(lblServer, BorderLayout.SOUTH);
 
-        JComponent canvas = new DrawingCanvas(client, frameWidth, frameHeight);
-
         JButton btnAdd = new JButton("Add server");
-
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -74,6 +63,8 @@ class ClientFrame extends JFrame {
                 }
             }
         });
+
+        JComponent canvas = new DrawingCanvas(client, frameWidth, frameHeight);
 
         panel.add(labelPanel, BorderLayout.NORTH);
         panel.add(canvas, BorderLayout.CENTER);

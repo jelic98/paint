@@ -21,7 +21,6 @@ public class InputOutput implements StringMaker {
                     int y = Integer.parseInt(line.substring(line.indexOf(".") + 1));
 
                     client.getPoints().add(new Point(x, y));
-
                     client.getCanvas().repaint();
                 }
             }else if(server != null) {
@@ -29,27 +28,27 @@ public class InputOutput implements StringMaker {
                     server.broadcast(line);
                 }
             }
-
-            reader.close();
         }catch(IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                reader.close();
+            }catch(IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
     void write(PrintWriter writer, Point point) {
         builder.setLength(0);
         builder.trimToSize();
-
         builder.append(point.x).append(".").append(point.y);
 
-        String packet = builder.toString();
-
-        write(writer, packet);
+        write(writer, builder.toString());
     }
 
     void write(PrintWriter writer, String line) {
         writer.println(line);
-
         writer.flush();
     }
 

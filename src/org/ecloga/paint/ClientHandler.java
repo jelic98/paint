@@ -1,5 +1,6 @@
 package org.ecloga.paint;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,18 +17,20 @@ class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        try {
-            while(true) {
-                Socket socket = serverSocket.accept();
+        while(true) {
+            Socket socket;
 
-                InetSocketAddress inetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-
-                String ip = inetSocketAddress.getAddress().toString().replace("/", "");
-
-                server.addClient(ip, socket);
+            try {
+                socket = serverSocket.accept();
+            }catch(IOException e) {
+                break;
             }
-        }catch(Exception e){
-            e.printStackTrace();
+
+            InetSocketAddress inetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+
+            String ip = inetSocketAddress.getAddress().toString().replace("/", "");
+
+            server.addClient(ip, socket);
         }
     }
 }
