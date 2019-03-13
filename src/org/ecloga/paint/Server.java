@@ -13,11 +13,9 @@ class Server extends Machine {
 
     private ServerFrame frame;
     private ServerSocket serverSocket;
-    private final ArrayList<BufferedReader> readers;
     private final ArrayList<PrintWriter> writers;
 
     public Server() {
-        readers = new ArrayList<>();
         writers = new ArrayList<>();
 
         Server instance = this;
@@ -65,7 +63,6 @@ class Server extends Machine {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
 
-            readers.add(reader);
             writers.add(writer);
 
             new Thread(new Listener(this, reader)).start();
