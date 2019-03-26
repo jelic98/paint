@@ -27,7 +27,7 @@ class Client extends Machine {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                //disconnect();
+                disconnect();
             }
         });
     }
